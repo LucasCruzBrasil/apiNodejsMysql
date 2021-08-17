@@ -1,0 +1,20 @@
+{
+  "name": "rest-api",
+  "version": "1.0.0",
+  "description": "api para picTip meu primeiro projetinho",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "picTip",
+    "api",
+    "lucas",
+    "first"
+  ],
+  "author": "Lucas Ferreira da Cruz",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
