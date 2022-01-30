@@ -1,4 +1,4 @@
-//lista  ghfghf
+//lista  escrivi isso para aprender a usar esse git
 const mysql = require('../mysql');
 
 
