@@ -47,7 +47,7 @@ exports.cadastrarUsuario = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
   
         if (results.length < 1) {
-          return res.status(401).send({ mensagem: 'falha na autenticação' })
+          return res.status(401).send({ mensagem: 'Email ou Senha não existe' })
   
         }
         bcrypt.compare(req.body.senha, results[0].senha, (error, result) => {
@@ -69,7 +69,7 @@ exports.cadastrarUsuario = (req, res, next) => {
                token: token
               })
           }
-          return res.status(401).send({ mensagem: 'falha na autenticação' })
+          return res.status(401).send({ mensagem: 'Email ou Senha não existe' })
   
         })
       })
