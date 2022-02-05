@@ -88,15 +88,16 @@ exports.getUmaGrujaEspecifica = async (req, res, next) => {
   try {
     const query = "SELECT * FROM gruja WHERE id_gruja = ?;";
     const result = await mysql.execute(query, [req.params.id_gruja]);
-
+    
     if (result.length == 0) {
       return res.status(404).send({
-        mensagem: 'Não fio encotrada nenhuma grojeta com esse id'
+        mensagem: 'Não foi encotrada nenhuma grojeta com esse id'
       })
     }
     const response = {
-      colaborador: {
+      gorjeta: {
         id_gruja: result[0].id_gruja,
+        id_colaborador:result[0].id_colaborador,
         valor: result[0].valor,
         data: result[0].data,
         request: {
