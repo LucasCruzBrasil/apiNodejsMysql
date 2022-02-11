@@ -86,17 +86,26 @@ exports.getListaUmValor = async (req, res, next) => {
 exports.getValores = async (req, res, next) => {
     try {
         const result = await mysql.execute("SELECT * FROM valores;")
+
+
+
+
         const response = {
             quantidade: result.length,
+
             valores: result.map(prod => {
+                let soma = prod.valor_cartao + prod.valor_dinheiro + prod.valor_pix + prod.valor_pic_pay
+                let divisao = soma / prod.qtd_pessoas
                 return {
                     id_valor: prod.id_valor,
                     valor_cartao: prod.valor_cartao,
                     valor_dinheiro: prod.valor_dinheiro,
                     valor_pix: prod.valor_pix,
                     valor_pic_pay: prod.valor_pic_pay,
-                    data_valor:prod.data_valor,
-                    qtd_pessoas:prod.qtd_pessoas,
+                    data_valor: prod.data_valor,
+                    qtd_pessoas: prod.qtd_pessoas,
+                    total: soma,
+                    valor_individual: divisao,
                     request: {
                         tipo: 'GET',
                         descricao: '',
