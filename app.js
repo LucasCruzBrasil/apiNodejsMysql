@@ -6,6 +6,7 @@ const rotaRecebetips = require('./routes/recebetips')
 const rotaColaborador = require('./routes/colaborador')
 const rotaGruja = require('./routes/gruja')
 const rotaUsuarios = require('./routes/usuarios');
+const rotaValores = require('./routes/valores');
 const bodyParser= require('body-parser')
 
 const app = express();
@@ -24,6 +25,7 @@ app.use('/recebetips', rotaRecebetips);
 app.use('/colaborador', rotaColaborador);
 app.use('/gruja', rotaGruja);
 app.use('/usuarios' ,rotaUsuarios);
+app.use('/valores', rotaValores);
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
