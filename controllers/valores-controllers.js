@@ -20,7 +20,7 @@ exports.postInsereValores = async (req, res, next) => {
             + req.body.valor_pix
             + req.body.valor_pic_pay;
 
-            let divisao = soma / req.body.qtd_pessoas;
+        let divisao = soma / req.body.qtd_pessoas;
 
 
         const response = {
@@ -35,7 +35,7 @@ exports.postInsereValores = async (req, res, next) => {
             quantidade_de_pessoas: req.body.qtd_pessoas,
             valor_Total: soma,
             valor_por_pessoa: divisao,
-            
+
             request: {
                 tipo: 'POST',
                 descricao: "Valor do dia",
@@ -49,7 +49,7 @@ exports.postInsereValores = async (req, res, next) => {
     }
 }
 
-//read
+//lista por  id um esprcífico
 exports.getListaUmValor = async (req, res, next) => {
     try {
         const query = "SELECT * FROM valores WHERE id_valor = ?;";
@@ -66,9 +66,9 @@ exports.getListaUmValor = async (req, res, next) => {
                 valor_cartao: result[0].valor_cartao,
                 valor_dinheiro: result[0].valor_dinheiro,
                 valor_pix: result[0].valor_pix,
-                valor_pic_pay:result[0].valor_pic_pay,
-                data_valor:result[0].data_valor,
-                qtd_pessoas:result[0].qtd_pessoas,
+                valor_pic_pay: result[0].valor_pic_pay,
+                data_valor: result[0].data_valor,
+                qtd_pessoas: result[0].qtd_pessoas,
                 request: {
                     tipo: 'GET',
                     descricao: 'Retorna um colabooador específico ',
@@ -80,4 +80,37 @@ exports.getListaUmValor = async (req, res, next) => {
     } catch (error) {
         return res.status(500).send({ error: error })
     }
+}
+
+//lista todos os valores 
+exports.getValores = async (req, res, next) => {
+    try {
+        const result = await mysql.execute("SELECT * FROM valores;")
+        const response = {
+            quantidade: result.length,
+            valores: result.map(prod => {
+                return {
+                    id_valor: prod.id_valor,
+                    valor_cartao: prod.valor_cartao,
+                    valor_dinheiro: prod.valor_dinheiro,
+                    valor_pix: prod.valor_pix,
+                    valor_pic_pay: prod.valor_pic_pay,
+                    data_valor:prod.data_valor,
+                    qtd_pessoas:prod.qtd_pessoas,
+                    request: {
+                        tipo: 'GET',
+                        descricao: '',
+                        url: 'http://localhost:3000/valores/' + prod.id_valor
+                    }
+                }
+            })
+        }
+
+        return res.status(200).send(response)
+
+    } catch (error) {
+        return res.status(500).send({ error: error })
+    }
+
+
 }
