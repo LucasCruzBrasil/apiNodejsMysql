@@ -32,7 +32,7 @@ exports.postInsereValores = async (req, res, next) => {
             valor_pix: req.body.valor_pix,
             valor_pic_pay: req.body.valor_pic_pay,
             dia: req.body.data_valor,
-            quantidade_de_pessoas: req.body.qtd_pessoas,
+            qtd_pessoas: req.body.qtd_pessoas,
             valor_Total: soma,
             valor_por_pessoa: divisao,
 
@@ -121,5 +121,57 @@ exports.getValores = async (req, res, next) => {
         return res.status(500).send({ error: error })
     }
 
+
+}
+
+///atualiza um valor 
+exports.getAtualizaUmValor = async (req, res ,next) => {
+    try {
+
+        const query =  `UPDATE valores
+        SET valor_cartao = ?,
+        valor_dinheiro = ?,
+        valor_pix = ?,
+        valor_pic_pay = ?,
+        data_valor = ?,
+        qtd_pessoas = ?
+        WHERE id_valor= ? `; 
+    
+        const result = await mysql.execute(query, [
+          req.body.valor_cartao,
+          req.body.valor_dinheiro,
+          req.body.valor_pix,
+          req.body.valor_pic_pay,
+          req.body.data_valor,
+          req.body.qtd_pessoas,
+          req.body.id_valor]);
+    
+        const response = {
+          mensagem: "Valor do dia atualizado com sucesso",
+          ValorAtualizado: {
+            valor_cartao: req.body.valor_cartao,
+            valor_dinheiro: req.body.valor_dinheiro,
+            valor_pix: req.body.valor_pix,
+            valor_pic_pay: req.body.valor_pic_pay,
+            data_valor: req.body.data_valor,
+            qtd_pessoas: req.body.qtd_pessoas,
+            id_valor: req.body.id_valor,
+
+            request: {
+              tipo: 'PATCH',
+              descricao: 'valor atualizado com sucesso para o valor ',
+              url: 'http://localhost:3000/valor'
+            }
+          }
+        }
+        console.log(result)
+        return res.status(202).send(response);
+    
+    
+      } catch (error) {
+         
+        return res.status(500).send({ error: error })
+      }
+    
 
 }
