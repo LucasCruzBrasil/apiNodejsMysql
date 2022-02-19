@@ -164,7 +164,7 @@ exports.getAtualizaUmValor = async (req, res ,next) => {
             }
           }
         }
-        console.log(result)
+        console.log(response)
         return res.status(202).send(response);
     
     
