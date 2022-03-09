@@ -50,36 +50,44 @@ exports.getEquipe = async (req, res, next) => {
           pessoa_vale: equipe.pessoa_vale
         }
       })
-      /*  valores_equipe: result.map(equipe => {
- 
-         return {
- 
-           nomes: equipe.nome,
-           valor_dinheiro: equipe.valor_dinheiro,
-           valor_cartao: equipe.valor_cartao,
-           valor_pix: equipe.valor_pix,
-           valor_pic_pay: equipe.valor_pic_pay,
-           data_valor: equipe.data_valor,
-           qtd_pessoas: equipe.qtd_pessoas,
-           id_equipe: equipe.id_equipe,
-           id_valor: equipe.id_valor,
- 
-           request: {
-             tipo: 'GET',
-             descricao: 'lisa de equipes',
-             url: 'http://localhost:3000/equipe/' + equipe.id_equipe
-           }
-         }
-       }), */
-
-
-
-
-    }
+     
+ }
     return res.status(200).send(response)
   } catch (error) {
     return res.status(500).send({ error: error }),
       console.log(error);
   }
+  
 
+}
+
+//insere  pessoas na equipe para receber valores
+exports.postInsereEquipe = async (req, res, next) => {
+  try {
+      const query = "INSERT INTO equipe (id_valor, id_colaborador, pessoa_vale ) VALUES (?,?,?)";
+      const result = await mysql.execute(query, [
+          req.body.id_valor,
+          req.body.id_colaborador,
+          req.body.pessoa_vale,
+
+      ]);
+     
+         const response = {
+
+          mensagem: "Pessoa inserida na equipe com sucesso",
+          id_valor: result.id_valor,
+          valor_cartao: req.body.id_colaborador,
+          valor_dinheiro: req.body.pessoa_vale,
+         
+          request: {
+              tipo: 'POST',
+              descricao: "Equipe",
+              url: 'http://localhost:3000/equipe'
+          }
+      }
+      return res.status(201).send(response);
+  } catch (error) {
+      console.log("response");
+      return res.status(500).send({ error: error })
+  }
 }
