@@ -47,7 +47,8 @@ exports.getEquipe = async (req, res, next) => {
           data_valor: equipe.data_valor,
           id_valor: equipe.id_valor,
           id_equipe: equipe.id_equipe,
-          pessoa_vale: equipe.pessoa_vale
+          pessoa_vale: equipe.pessoa_vale,
+          setor:equipe.setor
         }
       })
      
@@ -76,8 +77,8 @@ exports.postInsereEquipe = async (req, res, next) => {
 
           mensagem: "Pessoa inserida na equipe com sucesso",
           id_valor: result.id_valor,
-          valor_cartao: req.body.id_colaborador,
-          valor_dinheiro: req.body.pessoa_vale,
+          id_colaborador: req.body.id_colaborador,
+          pessoa_vale: req.body.pessoa_vale,
          
           request: {
               tipo: 'POST',

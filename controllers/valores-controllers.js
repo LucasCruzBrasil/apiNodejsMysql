@@ -72,9 +72,10 @@ exports.getListaUmValor = async (req, res, next) => {
                 request: {
                     tipo: 'GET',
                     descricao: 'Retorna um colabooador específico ',
-                    url: 'http://localhost:3000/colaborador'
+                    url: process.env + 'valores'
                 }
-            }
+                
+            }  
         }
         return res.status(200).send(response);
     } catch (error) {
