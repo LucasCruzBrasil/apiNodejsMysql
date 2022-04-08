@@ -51,7 +51,7 @@ router.get('/:id_colaborador', colaboradorController.getListaUmColaborador);
 router.delete('/', login.obrigatorio, colaboradorController.getDeletaUmcolaborador );
 
 //imagem
-router.post('/:id_colaborador/imagem', upload.single('colaborador_imagem'), login.obrigatorio, colaboradorController.postInsereImagem);
+router.post('/:id_colaborador/imagem', upload.single('colaborador_imagem'),colaboradorController.postInsereImagem);
 
 router.get('/:id_colaborador/imagens', colaboradorController.getListaImagens);
 
